@@ -56,6 +56,10 @@ public:
 	void swapValues(int index1, int index2) const;
 
 	////////// OTHERS //////////
-	void moveFirst3NodesToTheEnd();
+	void moveFirst3NodesToTheBack();
+	void moveLast3NodesToTheFront();
 
+	// Swap the first nodes between two objects
+	void swapFirsts(DoublyList& other);
+	void swapLasts(DoublyList& other);
 };

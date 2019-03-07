@@ -18,6 +18,9 @@
     <ClInclude Include="DoublyList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HelperFunctions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DoublyList.cpp">

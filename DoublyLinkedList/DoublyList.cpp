@@ -542,19 +542,91 @@ void DoublyList::swapValues(int node1Index, int node2Index) const {
 }
 
 ////////// OTHERS //////////
-void DoublyList::moveFirst3NodesToTheEnd() {
-	// Get the third node
-	Node* p3 = first->getNext()->getNext();
+void DoublyList::moveFirst3NodesToTheBack() {
+	// Get the new last node
+	Node* newLast = first->getNext()->getNext();
 
-	// Turn the list into a Circular list
+	// Make a Circular list
 	last->setNext(first);
 	first->setPrev(last);
 
 	// Update first & last
-	first = p3->getNext(); // connect to the 4th node
-	last = p3;
+	first = newLast->getNext(); // connect to the 4th node
+	last = newLast;
 
 	// Update first's previous & last's next
 	first->setPrev(nullptr);
 	last->setNext(nullptr);
+}
+
+void DoublyList::moveLast3NodesToTheFront() {
+	// Get the new first node
+	Node* newFirst = last->getPrev()->getPrev();
+
+	// Make a Circular list
+	last->setNext(first);
+	first->setPrev(last);
+
+	// Update first & last
+	first = newFirst;
+	last = newFirst->getPrev();
+
+	// Update first's previous & last's next
+	first->setPrev(nullptr);
+	last->setNext(nullptr);
+}
+
+void DoublyList::swapFirsts(DoublyList& other) {
+	// Link the second nodes to the first nodes
+	if (first->getNext() != nullptr) {
+		first->getNext()->setPrev(other.first);
+	}
+
+	if (other.first->getNext() != nullptr) {
+		other.first->getNext()->setPrev(first);
+	}
+
+	// Link the first nodes to the second nodes
+	Node* temp = first->getNext();
+	first->setNext(other.first->getNext());
+	other.first->setNext(temp);
+
+	// Swap first pointers DoublyList
+	temp = first;
+	first = other.first;
+	other.first = temp;
+
+	// Update the lasts if needed
+	if (count == 1)
+		last = first;
+	if (other.count == 1)
+		other.last = other.first;
+}
+
+void DoublyList::swapLasts(DoublyList& other) {
+	// Link the previous nodes to new last nodes
+	if (last->getPrev() != nullptr) {
+		last->getPrev()->setNext(other.last);
+	}
+
+	if (other.last->getPrev() != nullptr) {
+		other.last->getPrev()->setNext(last);
+	}
+
+	// Link the last nodes to the previous nodes
+	Node* temp = last->getPrev();
+	last->setPrev(other.last->getPrev());
+	other.last->setPrev(temp);
+
+	// Swap last pointers
+	temp = last;
+	last = other.last;
+	other.last = temp;
+
+	// Update the firsts if needed
+	if (count == 1)
+		first = last;
+
+	if (other.count == 1)
+		other.first = other.last;
 }
