@@ -2,6 +2,9 @@
 #include "DoublyList.h"
 
 int main() {
+	cout << "=========================" << endl;
+	cout << static_cast<void*>(nullptr) << endl;
+
 	DoublyList list1;
 	resetList(list1);
 
@@ -160,6 +163,12 @@ int main() {
 	// swapLasts
 	test_swapLasts();
 
+
+	// swapValuesFirstAndLast
+	test_swapValuesFirstAndLast();
+
+	// copyValuesFromObjToObj
+	test_copyValuesFromObjToObj();
 
 	system("pause");
 	return 0;

@@ -630,3 +630,22 @@ void DoublyList::swapLasts(DoublyList& other) {
 	if (other.count == 1)
 		other.first = other.last;
 }
+
+void DoublyList::swapValuesFirstAndLast(DoublyList& other) {
+	string temp = first->getData();
+	first->setData(other.last->getData());
+	other.last->setData(temp);
+}
+
+void DoublyList::copyValuesFromObjToObj(const vector<string>& v1, DoublyList& other) {
+	for (int i = 2; i > -1; --i) {
+		first->setPrev(new Node(v1[i], nullptr, first));
+		first = first->getPrev();
+
+		++count;
+	}
+
+	other.last->setNext(new Node(v1.back(), other.last, nullptr));
+	other.last = other.last->getNext();
+	++other.count;
+}

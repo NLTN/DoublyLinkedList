@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <vector> 
 
 using namespace std;
 
@@ -62,4 +63,6 @@ public:
 	// Swap the first nodes between two objects
 	void swapFirsts(DoublyList& other);
 	void swapLasts(DoublyList& other);
+	void swapValuesFirstAndLast(DoublyList& other);
+	void copyValuesFromObjToObj(const vector<string>& v, DoublyList& other);
 };
