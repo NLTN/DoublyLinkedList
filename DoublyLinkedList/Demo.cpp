@@ -5,6 +5,8 @@ int main() {
 	cout << "=========================" << endl;
 	cout << static_cast<void*>(nullptr) << endl;
 
+	//	system("Pause");
+
 	DoublyList list1;
 	resetList(list1);
 
@@ -51,10 +53,10 @@ int main() {
 	list1.insertBack("5");
 	list1.insertBack("6");
 	list1.insertBack("7");
-	list1.insertBack("8");	
+	list1.insertBack("8");
 	printList(list1);
 
-	
+
 	// Insert Before
 	DoublyList testInsertBeforeList;
 	cout << string(50, '-') << endl;
@@ -89,73 +91,32 @@ int main() {
 	printList(list2);
 
 	// Swap Ends
-	cout << string(50, '-') << endl;
-	cout << "Test: swapEnds(). Two-elements list" << endl;
-	list2.swapEnds();
-	printList(list2);
-
+	test_swapEnds();
 
 	// swapValues
-	cout << string(50, '-') << endl;
-	cout << "Test: swapValues(0, 1). Two-elements list" << endl;
-	list2.swapValues(0, 1);
-	printList(list2);
-
-	// swapValues
-	cout << string(50, '-') << endl;
-	cout << "Test: swapValues(3, 5). Many-elements list" << endl;
-	cout << string(10, '-') << "Before" << string(10, '-') << endl;
-	printList(list1);
-	cout << string(10, '-') << "After" << string(10, '-') << endl;
-	list1.swapValues(3, 5);
-	printList(list1);
+	test_swapValues_byIndex();
 
 	// swapNodes
-	cout << string(50, '-') << endl;
-	cout << "Test: swapNodes(0, 1).  Two-elements list" << endl;
-	cout << string(10, '-') << "Before" << string(10, '-') << endl;
-	printList(list2);
-	cout << string(10, '-') << "After" << string(10, '-') << endl;
-	list2.swapNodes(0, 1);
-	printList(list2);
+	test_swapNodes_byIndex();
 
 	// swapNodes
-	cout << string(50, '-') << endl;
-	cout << "Test: swapNodes(0, 1).  Many-elements list" << endl;
-	cout << string(10, '-') << "Before" << string(10, '-') << endl;
-	printList(list1);
-	cout << string(10, '-') << "After" << string(10, '-') << endl;
-	list1.swapNodes(2, 4);
-	printList(list1);
-
-
-	// swapNodes
-	cout << string(50, '-') << endl;
-	cout << "Test: swapNodes(Node*, Node*).  Many-elements list" << endl;
-	cout << string(10, '-') << "Before" << string(10, '-') << endl;
-	printList(list1);
-	cout << string(10, '-') << "After" << string(10, '-') << endl;
-	list1.swapNodes(list1.getFirst(), list1.getLast());
-	printList(list1);
-
+	test_swapNodes_FirstAndLast();
+	test_swapNodes_2ndAnd3rd();
 
 	// remove data
-	cout << string(50, '-') << endl;
-	cout << "Test: remove('B')" << endl;
-	cout << string(10, '-') << "Before" << string(10, '-') << endl;
-	printList(list1);
-	cout << string(10, '-') << "After" << string(10, '-') << endl;
-	list1.remove("B");
-	printList(list1);
+	test_remove(list1);
 
 	// reverse
 	test_reverse(list1);
 
-	// moveFirst3NodesToTheEnd()
+	// moveFirst3NodesToTheEnd
 	test_moveFirst3NodesToTheBack(list1);
 
-	// moveLast3NodesToTheFront()
+	// moveLast3NodesToTheFront
 	test_moveLast3NodesToTheFront(list1);
+
+	// moveSecondToBack
+	test_moveSecondToBack();
 
 	// swapFirsts
 	test_swapFirsts();
@@ -163,6 +124,11 @@ int main() {
 	// swapLasts
 	test_swapLasts();
 
+	// swapSecondAndLast
+	test_swapSecondAndLast();
+
+	// swapSecondAndPrevLast
+	test_swapSecondAndPrevLast();
 
 	// swapValuesFirstAndLast
 	test_swapValuesFirstAndLast();

@@ -456,14 +456,12 @@ void DoublyList::swapNodes(int node1Index, int node2Index) {
 	}
 }
 void DoublyList::swapNodes(Node* node1, Node* node2) {
-	Node* temp; // a temp pointer
-
-	// Swap the next pointers of node1 & node2
-	temp = node1->getNext();
+	// Step 1: Swap the next pointers of node1 & node2
+	Node* temp = node1->getNext();
 	node1->setNext(node2->getNext());
 	node2->setNext(temp);
 
-	// Update the previous pointer of the nearby nodes
+	// Step 2: Update the previous pointers of nearby nodes
 	if (node1->getNext() != nullptr)
 		node1->getNext()->setPrev(node1);
 	else
@@ -474,12 +472,12 @@ void DoublyList::swapNodes(Node* node1, Node* node2) {
 	else
 		last = node2;
 
-	// Swap the previous pointers of node1 & node2
+	// Step 3: Swap the previous pointers of node1 & node2
 	temp = node1->getPrev();
 	node1->setPrev(node2->getPrev());
 	node2->setPrev(temp);
 
-	// Update the next pointers of the nearby nodes
+	// Step 4: Update the next pointers of nearby nodes
 	if (node1->getPrev() != nullptr)
 		node1->getPrev()->setNext(node1);
 	else
@@ -576,6 +574,22 @@ void DoublyList::moveLast3NodesToTheFront() {
 	last->setNext(nullptr);
 }
 
+void DoublyList::moveSecondToBack() {
+	Node* second = first->getNext();
+
+	// Link the first & the third
+	second->getNext()->setPrev(first);
+	first->setNext(second->getNext());
+
+	// Link the second to the last node
+	second->setPrev(last);
+	last->setNext(second);
+
+	// Update last
+	last = second;
+	last->setNext(nullptr);
+}
+
 void DoublyList::swapFirsts(DoublyList& other) {
 	// Link the second nodes to the first nodes
 	if (first->getNext() != nullptr) {
@@ -629,6 +643,42 @@ void DoublyList::swapLasts(DoublyList& other) {
 
 	if (other.count == 1)
 		other.first = other.last;
+}
+
+void DoublyList::swapSecondAndLast() {
+	Node* second = first->getNext();
+
+	// Link second to the node before last
+	last->getPrev()->setNext(second);
+	second->setPrev(last->getPrev());
+
+	// Link the 3rd and last
+	second->getNext()->setPrev(last);
+	last->setNext(second->getNext());
+	last->setPrev(first);
+	first->setNext(last);
+
+	// Update last
+	last = second;
+	last->setNext(nullptr);
+}
+
+// Assumption: The list has at least 4 elements
+void DoublyList::swapSecondAndPrevLast() {
+	Node* second = first->getNext();
+	Node* prevLast = last->getPrev();
+
+	first->setNext(prevLast);
+	last->setPrev(second);
+	
+	second->getNext()->setPrev(prevLast);
+	prevLast->getPrev()->setNext(second);
+
+	second->setPrev(prevLast->getPrev());
+	prevLast->setPrev(first);
+
+	prevLast->setNext(second->getNext());
+	second->setNext(last);
 }
 
 void DoublyList::swapValuesFirstAndLast(DoublyList& other) {

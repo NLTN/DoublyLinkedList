@@ -32,11 +32,66 @@ private:
 public:
 	// Constructor & Destructor
 	DoublyList() : count(0) {};
+
+	// The BIG THREE
+	DoublyList(const DoublyList& other) : count(0) {
+		if (other.count == 1)
+			insertBack(other.first->getData());
+		else if (other.count > 1) {
+			Node* current = other.first;
+			while (current != nullptr) {
+				insertBack(current->getData());
+				current = current->getNext();
+			}
+		}
+	}
+
+	// The BIG THREE
 	~DoublyList() { destroyList(); };
+
+	// Overloaded Operators
+	// The BIG THREE
+	DoublyList& operator=(const DoublyList& other) {
+		if (this == &other)
+			cerr << "Self assigment" << endl;
+		else {
+			destroyList();
+			count = 0;
+
+			if (other.count == 1)
+				insertBack(other.first->getData());
+			else if (other.count > 1) {
+				Node* current = other.first;
+				while (current != nullptr) {
+					insertBack(current->getData());
+					current = current->getNext();
+				}
+			}
+		}
+
+		return *this;
+	}
 
 	// Getters 
 	Node* getFirst() const { return first; };
 	Node* getLast() const { return last; };
+	int getCount() const { return count; };
+
+	friend ostream& operator<<(ostream& out, const DoublyList& list) {
+		if (list.first != nullptr) {
+			if (list.count == 1)
+				out << list.first->getData();
+			else {
+				Node* current = list.first;
+				while (current != nullptr) {
+					out << current->getData() << ' ';
+					current = current->getNext();
+				}
+			}
+		}
+
+		return out;
+	}
 
 	void destroyList();
 	void print() const;
@@ -59,10 +114,13 @@ public:
 	////////// OTHERS //////////
 	void moveFirst3NodesToTheBack();
 	void moveLast3NodesToTheFront();
+	void moveSecondToBack();
 
 	// Swap the first nodes between two objects
 	void swapFirsts(DoublyList& other);
 	void swapLasts(DoublyList& other);
+	void swapSecondAndLast();
+	void swapSecondAndPrevLast(); // Assumption: The list has at least 4 elements
 	void swapValuesFirstAndLast(DoublyList& other);
 	void copyValuesFromObjToObj(const vector<string>& v, DoublyList& other);
 };
