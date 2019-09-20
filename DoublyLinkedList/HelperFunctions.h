@@ -1,11 +1,21 @@
+/*
+	Nguyen, Nguyen
+
+	March 20, 2019
+
+	Playing  with Doubly Linked List
+*/
+
 #pragma once
 #include "DoublyList.h"
-void printHeader(const string& text) {
+void printHeader(const string& text)
+{
 	cout << string(50, '-') << endl;
 	cout << text << endl;
 }
 
-void printList(const DoublyList& list) {
+void printList(const DoublyList& list)
+{
 	cout << "   Forward : ";
 	list.print();
 
@@ -17,7 +27,8 @@ void printList(const DoublyList& list) {
 	cout << endl << endl;
 }
 
-void resetList(DoublyList& list1) {
+void resetList(DoublyList& list1)
+{
 	list1.destroyList();
 
 	list1.insertBack("A");
@@ -27,7 +38,8 @@ void resetList(DoublyList& list1) {
 	list1.insertBack("E");
 }
 
-void test_swapEnds() {
+void test_swapEnds()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -36,7 +48,9 @@ void test_swapEnds() {
 	list1.swapEnds();
 	printList(list1);
 }
-void test_swapValues_byIndex() {
+
+void test_swapValues_byIndex()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -50,7 +64,8 @@ void test_swapValues_byIndex() {
 	printList(list1);
 }
 
-void test_swapNodes_byIndex() {
+void test_swapNodes_byIndex()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -64,7 +79,8 @@ void test_swapNodes_byIndex() {
 	printList(list1);
 }
 
-void test_swapNodes_FirstAndLast() {
+void test_swapNodes_FirstAndLast()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -78,7 +94,8 @@ void test_swapNodes_FirstAndLast() {
 	printList(list1);
 }
 
-void test_swapNodes_2ndAnd3rd() {
+void test_swapNodes_2ndAnd3rd()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -92,7 +109,8 @@ void test_swapNodes_2ndAnd3rd() {
 	printList(list1);
 }
 
-void test_remove(DoublyList& list1) {
+void test_remove(DoublyList& list1)
+{
 	printHeader("Test: remove('B')");
 
 	cout << string(10, '-') << "Before" << string(10, '-') << endl;
@@ -103,7 +121,8 @@ void test_remove(DoublyList& list1) {
 	printList(list1);
 }
 
-void test_reverse(DoublyList& list1) {
+void test_reverse(DoublyList& list1)
+{
 	printHeader("Test: reverse() the list");
 
 	cout << string(10, '-') << "Before" << string(10, '-') << endl;
@@ -115,7 +134,8 @@ void test_reverse(DoublyList& list1) {
 	printList(list1);
 }
 
-void test_moveFirst3NodesToTheBack(DoublyList& list1) {
+void test_moveFirst3NodesToTheBack(DoublyList& list1)
+{
 	resetList(list1);
 
 	printHeader("Test: moveFirst3NodesToTheEnd()");
@@ -129,7 +149,8 @@ void test_moveFirst3NodesToTheBack(DoublyList& list1) {
 	printList(list1);
 }
 
-void test_moveLast3NodesToTheFront(DoublyList& list1) {
+void test_moveLast3NodesToTheFront(DoublyList& list1)
+{
 	resetList(list1);
 
 	printHeader("Test: moveLast3NodesToTheFront()");
@@ -143,7 +164,8 @@ void test_moveLast3NodesToTheFront(DoublyList& list1) {
 	printList(list1);
 }
 
-void test_moveSecondToBack() {
+void test_moveSecondToBack()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -158,7 +180,8 @@ void test_moveSecondToBack() {
 	printList(list1);
 }
 
-void test_swapFirsts() {
+void test_swapFirsts()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -179,7 +202,8 @@ void test_swapFirsts() {
 	printList(list2);
 }
 
-void test_swapLasts() {
+void test_swapLasts()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -204,7 +228,8 @@ void test_swapLasts() {
 	printList(list2);
 }
 
-void test_swapSecondAndLast() {
+void test_swapSecondAndLast()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -219,8 +244,8 @@ void test_swapSecondAndLast() {
 	printList(list1);
 }
 
-void test_swapSecondAndPrevLast() {
-
+void test_swapSecondAndPrevLast()
+{
 	DoublyList list2;
 	resetList(list2);
 
@@ -238,7 +263,8 @@ void test_swapSecondAndPrevLast() {
 	printList(list1);
 }
 
-void test_swapValuesFirstAndLast() {
+void test_swapValuesFirstAndLast()
+{
 	DoublyList list1;
 	resetList(list1);
 
@@ -263,7 +289,8 @@ void test_swapValuesFirstAndLast() {
 	printList(list2);
 }
 
-void test_copyValuesFromObjToObj() {
+void test_copyValuesFromObjToObj()
+{
 	DoublyList list1;
 	list1.insertBack("1");
 	list1.insertBack("2");

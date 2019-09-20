@@ -1,3 +1,11 @@
+/*
+	Nguyen, Nguyen
+
+	March 20, 2019
+
+	Playing  with Doubly Linked List
+*/
+
 #include "HelperFunctions.h"
 #include "DoublyList.h"
 
@@ -139,4 +147,3 @@ int main() {
 	system("pause");
 	return 0;
 }
-

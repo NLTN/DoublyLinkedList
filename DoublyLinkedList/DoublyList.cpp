@@ -1,14 +1,21 @@
-/**
+/*
 	Nguyen, Nguyen
+
+	March 20, 2019
+
+	Playing  with Doubly Linked List
 */
 
 #include "DoublyList.h"
 
-void DoublyList::destroyList() {
-	if (first != nullptr) {
+void DoublyList::destroyList()
+{
+	if (first != nullptr)
+	{
 		Node* temp;
 
-		while (first != nullptr) {
+		while (first != nullptr)
+		{
 			temp = first;
 			first = first->getNext();
 			delete temp;
@@ -20,13 +27,19 @@ void DoublyList::destroyList() {
 	}
 }
 
-void DoublyList::print() const {
-	if (first != nullptr) {
+void DoublyList::print() const
+{
+	if (first != nullptr)
+	{
 		if (count == 1)
+		{
 			cout << first->getData();
-		else {
+		}
+		else
+		{
 			Node* current = first;
-			while (current != nullptr) {
+			while (current != nullptr)
+			{
 				cout << current->getData() << ' ';
 				current = current->getNext();
 			}
@@ -34,13 +47,19 @@ void DoublyList::print() const {
 	}
 }
 
-void DoublyList::printReverse() const {
-	if (first != nullptr) {
+void DoublyList::printReverse() const
+{
+	if (first != nullptr)
+	{
 		if (count == 1)
+		{
 			cout << first->getData();
-		else {
+		}
+		else
+		{
 			Node* current = last;
-			while (current != nullptr) {
+			while (current != nullptr)
+			{
 				cout << current->getData() << ' ';
 				current = current->getPrev();
 			}
@@ -48,12 +67,15 @@ void DoublyList::printReverse() const {
 	}
 }
 
-void DoublyList::insertFront(const string& newData) {
-	if (first == nullptr) {
+void DoublyList::insertFront(const string& newData)
+{
+	if (first == nullptr)
+	{
 		first = new Node(newData, nullptr, nullptr);
 		last = first;
 	}
-	else {
+	else
+	{
 		Node* node = new Node(newData, nullptr, first);
 		first->setPrev(node);
 		first = node;
@@ -62,12 +84,15 @@ void DoublyList::insertFront(const string& newData) {
 	++count; // Update the count
 }
 
-void DoublyList::insertBack(const string& newData) {
-	if (first == nullptr) {
+void DoublyList::insertBack(const string& newData)
+{
+	if (first == nullptr)
+	{
 		first = new Node(newData, nullptr, nullptr);
 		last = first;
 	}
-	else {
+	else
+	{
 		Node* node = new Node(newData, last, nullptr);
 		last->setNext(node);
 		last = node;
@@ -76,28 +101,34 @@ void DoublyList::insertBack(const string& newData) {
 	++count; // Update the count
 }
 
-bool DoublyList::insertAt(const string& newData, int index) {
+bool DoublyList::insertAt(const string& newData, int index)
+{
 	// Checking for Out of Bound
-	if (index < 0 || index > count) {
+	if (index < 0 || index > count)
+	{
 		cerr << "Out of bound. Can not insert" << endl;
 		return false;
 	}
 
 	// Case 1: Insert front
-	if (index == 0) {
+	if (index == 0)
+	{
 		insertFront(newData);
 	}
 	// Case 2: Insert back
-	else if (index == count) {
+	else if (index == count)
+	{
 		insertBack(newData);
 	}
 	// Case 3: Insert somewhere in the middle
-	else {
+	else
+	{
 		int counter(0);
 		Node* current = first;
 
 		// Go to the previous node
-		while (counter < index - 1) {
+		while (counter < index - 1)
+		{
 			current = current->getNext();
 			++counter;
 		}
@@ -113,46 +144,62 @@ bool DoublyList::insertAt(const string& newData, int index) {
 	return true;
 }
 
-Node* DoublyList::insertBefore(const string& newData, Node* nextNode) {
+Node* DoublyList::insertBefore(const string& newData, Node* nextNode)
+{
 	++count; // Update the count
 
 	// Case 1: The list is empty
-	if (first == nullptr) {
+	if (first == nullptr)
+	{
 		first = new Node(newData, nullptr, nullptr);
 		last = first;
 
 		return first;
 	}
 	// Other Cases
-	else {
+	else
+	{
 		Node* prevNode = nextNode->getPrev();
 		Node* node = new Node(newData, prevNode, nextNode);
 
 		if (nextNode != nullptr)
+		{
 			nextNode->setPrev(node);
+		}
 		else
+		{
 			last = node;
+		}
 
 		if (prevNode != nullptr)
+		{
 			prevNode->setNext(node);
+		}
 		else
+		{
 			first = node;
+		}
 
 		return node;
 	}
 }
 
-void DoublyList::reverse() {
-	if (first == nullptr) {
+void DoublyList::reverse()
+{
+	if (first == nullptr)
+	{
 		cerr << "The list is empty" << endl;
 	}
-	else if (count == 1) {
+	else if (count == 1)
+	{
 		cerr << "No need to reverse. Only one element in the list." << endl;
 	}
-	else if (count == 2) {
+	else if (count == 2)
+	{
 		swapEnds();
 	}
-	else {
+	else
+	{
 		Node* temp;
 		Node* frontCurrent = first;
 		Node* backCurrent = last;
@@ -160,7 +207,8 @@ void DoublyList::reverse() {
 		int i = 1;
 		int half = count / 2;
 
-		while (i++ <= half) {
+		while (i++ <= half)
+		{
 			swapNodes(frontCurrent, backCurrent);
 
 			// Move next
@@ -171,26 +219,33 @@ void DoublyList::reverse() {
 	}
 }
 
-bool DoublyList::remove(const string& data) {
+bool DoublyList::remove(const string& data)
+{
 	// Case 1: The list is empty
-	if (first == nullptr) {
+	if (first == nullptr)
+	{
 		cerr << "The list is empty" << endl;
 		return false;
 	}
 	// Case 2: The list has one element
-	else if (count == 1) {
-		if (first->getData() == data) {
+	else if (count == 1)
+	{
+		if (first->getData() == data)
+		{
 			delete first;
 			first = last = nullptr;
 		}
 	}
-	else {
+	else
+	{
 		// A temp pointer. Start from the 2nd element
 		Node* current = first->getNext();
 
 		// Go to the end
-		while (current != nullptr) {
-			if (current->getData() == data) {
+		while (current != nullptr)
+		{
+			if (current->getData() == data)
+			{
 				Node* temp = current;
 				Node* prevNode = current->getPrev();
 				Node* nextNode = current->getNext();
@@ -199,13 +254,19 @@ bool DoublyList::remove(const string& data) {
 				if (prevNode != nullptr)
 					prevNode->setNext(nextNode);
 				else
+				{
 					first = nextNode;
+				}
 
 				// Link the next node to the previous
 				if (nextNode != nullptr)
+				{
 					nextNode->setPrev(prevNode);
+				}
 				else
+				{
 					last = prevNode;
+				}
 
 				// Move current to the next node
 				current = current->getNext();
@@ -225,31 +286,41 @@ bool DoublyList::remove(const string& data) {
 	--count; // Update the count
 }
 
-bool DoublyList::remove(Node* node) {
+bool DoublyList::remove(Node* node)
+{
 	// Case 1: The list is empty or node == null
 	if (node == nullptr)
+	{
 		return false;
+	}
 	// Case 2: The list has one element
-	else if (count == 1) {
+	else if (count == 1)
+	{
 		delete node;
 		node = nullptr;
 		first = last = nullptr;
 	}
 	// Case 3: The list has more than one element
-	else {
+	else
+	{
 		// Link the previous node to the next
 		if (node->getPrev() != nullptr)
+		{
 			node->getPrev()->setNext(node->getNext());
-		else {
+		}
+		else
+		{
 			node->getNext()->setPrev(nullptr);
 			first = node->getNext();
 		}
 
 		// Link the next node to the previous
 		if (node->getNext() != nullptr)
+		{
 			node->getNext()->setPrev(node->getPrev());
-
-		else {
+		}
+		else
+		{
 			node->getPrev()->setNext(nullptr);
 			last = node->getPrev();
 		}
@@ -262,15 +333,18 @@ bool DoublyList::remove(Node* node) {
 	--count; // Update the count
 }
 
-bool DoublyList::removeAt(int index) {
+bool DoublyList::removeAt(int index)
+{
 	// Check if out of bound
-	if (index < 0 || index >= count) {
+	if (index < 0 || index >= count)
+	{
 		cerr << "Out of bound" << endl;
 		return false;
 	}
 
 	// Case 1: Removing the first node
-	if (index == 0) {
+	if (index == 0)
+	{
 		Node* temp = first; // A temp pointer
 		first = first->getNext(); // Point to the next node
 		first->setPrev(nullptr);
@@ -278,7 +352,8 @@ bool DoublyList::removeAt(int index) {
 		temp = nullptr;
 	}
 	// Case 2: Removing the last node
-	else if (index == count - 1) {
+	else if (index == count - 1)
+	{
 		Node* temp = last; // A temp pointer
 		last = last->getPrev(); // Point to the previous node
 		last->setNext(nullptr);
@@ -286,12 +361,14 @@ bool DoublyList::removeAt(int index) {
 		temp = nullptr;
 	}
 	// Case 3: Removing a node in the between
-	else {
+	else
+	{
 		int counter = 0;
 		Node* current = first;
 
 		// Go to the node that needs to be deleted.
-		while (counter < index) {
+		while (counter < index)
+		{
 			current = current->getNext();
 			++counter;
 		}
@@ -311,8 +388,10 @@ bool DoublyList::removeAt(int index) {
 	return true;
 }
 
-bool DoublyList::removeFirst() {
-	if (first == nullptr) {
+bool DoublyList::removeFirst()
+{
+	if (first == nullptr)
+	{
 		cerr << "The list is empty" << endl;
 		return false;
 	}
@@ -328,12 +407,15 @@ bool DoublyList::removeFirst() {
 	return true;
 }
 
-bool DoublyList::removeLast() {
-	if (first == nullptr) {
+bool DoublyList::removeLast()
+{
+	if (first == nullptr)
+	{
 		cerr << "The list is empty" << endl;
 		return false;
 	}
-	else {
+	else
+	{
 		Node* temp = last;
 		last = last->getPrev();
 		last->setNext(nullptr);
@@ -345,14 +427,18 @@ bool DoublyList::removeLast() {
 	return true;
 }
 
-void DoublyList::swapEnds() {
-	if (first == nullptr) {
+void DoublyList::swapEnds()
+{
+	if (first == nullptr)
+	{
 		cerr << "The list is empty" << endl;
 	}
-	else if (first == last) {
+	else if (first == last)
+	{
 		cerr << "There is only one element in the list." << endl;
 	}
-	else if (count == 2) {
+	else if (count == 2)
+	{
 		last->setNext(first);
 		first->setPrev(last);
 
@@ -363,7 +449,8 @@ void DoublyList::swapEnds() {
 		first->setPrev(nullptr);
 		last->setNext(nullptr);
 	}
-	else {
+	else
+	{
 		first->setPrev(last->getPrev());
 		last->setNext(first->getNext());
 
@@ -379,7 +466,8 @@ void DoublyList::swapEnds() {
 	}
 }
 
-void DoublyList::swapNodes(int node1Index, int node2Index) {
+void DoublyList::swapNodes(int node1Index, int node2Index)
+{
 	if (node1Index < 0 || node2Index < 0 ||
 		node1Index >= count || node2Index >= count)
 	{
@@ -425,11 +513,13 @@ void DoublyList::swapNodes(int node1Index, int node2Index) {
 		node1->setNext(node2->getNext());
 		node2->setNext(temp);
 
-		if (node1->getNext() != nullptr) {
+		if (node1->getNext() != nullptr)
+		{
 			node1->getNext()->setPrev(node1);
 		}
 
-		if (node2->getNext() != nullptr) {
+		if (node2->getNext() != nullptr)
+		{
 			node2->getNext()->setPrev(node2);
 		}
 
@@ -437,25 +527,30 @@ void DoublyList::swapNodes(int node1Index, int node2Index) {
 		node1->setPrev(node2->getPrev());
 		node2->setPrev(temp);
 
-		if (node1->getPrev() != nullptr) {
+		if (node1->getPrev() != nullptr)
+		{
 			node1->getPrev()->setNext(node1);
 		}
 
-		if (node2->getPrev() != nullptr) {
+		if (node2->getPrev() != nullptr)
+		{
 			node2->getPrev()->setNext(node2);
 		}
 
 		// Upadte *First and *Last
-		if (node2->getPrev() == nullptr) {
+		if (node2->getPrev() == nullptr)
+		{
 			first = node2;
 		}
 
-		if (node1->getNext() == nullptr) {
+		if (node1->getNext() == nullptr)
+		{
 			last = node1;
 		}
 	}
 }
-void DoublyList::swapNodes(Node* node1, Node* node2) {
+void DoublyList::swapNodes(Node* node1, Node* node2)
+{
 	// Step 1: Swap the next pointers of node1 & node2
 	Node* temp = node1->getNext();
 	node1->setNext(node2->getNext());
@@ -463,14 +558,22 @@ void DoublyList::swapNodes(Node* node1, Node* node2) {
 
 	// Step 2: Update the previous pointers of nearby nodes
 	if (node1->getNext() != nullptr)
+	{
 		node1->getNext()->setPrev(node1);
+	}
 	else
+	{
 		last = node1;
+	}
 
 	if (node2->getNext() != nullptr)
+	{
 		node2->getNext()->setPrev(node2);
+	}
 	else
+	{
 		last = node2;
+	}
 
 	// Step 3: Swap the previous pointers of node1 & node2
 	temp = node1->getPrev();
@@ -479,17 +582,26 @@ void DoublyList::swapNodes(Node* node1, Node* node2) {
 
 	// Step 4: Update the next pointers of nearby nodes
 	if (node1->getPrev() != nullptr)
+	{
 		node1->getPrev()->setNext(node1);
+	}
 	else
+	{
 		first = node1;
+	}
 
 	if (node2->getPrev() != nullptr)
+	{
 		node2->getPrev()->setNext(node2);
+	}
 	else
+	{
 		first = node2;
+	}
 }
 
-void DoublyList::swapValues(int node1Index, int node2Index) const {
+void DoublyList::swapValues(int node1Index, int node2Index) const
+{
 	if (node1Index < 0 || node2Index < 0 ||
 		node1Index >= count || node2Index >= count)
 	{
@@ -540,7 +652,8 @@ void DoublyList::swapValues(int node1Index, int node2Index) const {
 }
 
 ////////// OTHERS //////////
-void DoublyList::moveFirst3NodesToTheBack() {
+void DoublyList::moveFirst3NodesToTheBack()
+{
 	// Get the new last node
 	Node* newLast = first->getNext()->getNext();
 
@@ -557,7 +670,8 @@ void DoublyList::moveFirst3NodesToTheBack() {
 	last->setNext(nullptr);
 }
 
-void DoublyList::moveLast3NodesToTheFront() {
+void DoublyList::moveLast3NodesToTheFront()
+{
 	// Get the new first node
 	Node* newFirst = last->getPrev()->getPrev();
 
@@ -574,7 +688,8 @@ void DoublyList::moveLast3NodesToTheFront() {
 	last->setNext(nullptr);
 }
 
-void DoublyList::moveSecondToBack() {
+void DoublyList::moveSecondToBack()
+{
 	Node* second = first->getNext();
 
 	// Link the first & the third
@@ -590,13 +705,16 @@ void DoublyList::moveSecondToBack() {
 	last->setNext(nullptr);
 }
 
-void DoublyList::swapFirsts(DoublyList& other) {
+void DoublyList::swapFirsts(DoublyList& other)
+{
 	// Link the second nodes to the first nodes
-	if (first->getNext() != nullptr) {
+	if (first->getNext() != nullptr)
+	{
 		first->getNext()->setPrev(other.first);
 	}
 
-	if (other.first->getNext() != nullptr) {
+	if (other.first->getNext() != nullptr)
+	{
 		other.first->getNext()->setPrev(first);
 	}
 
@@ -612,18 +730,26 @@ void DoublyList::swapFirsts(DoublyList& other) {
 
 	// Update the lasts if needed
 	if (count == 1)
+	{
 		last = first;
+	}
+
 	if (other.count == 1)
+	{
 		other.last = other.first;
+	}
 }
 
-void DoublyList::swapLasts(DoublyList& other) {
+void DoublyList::swapLasts(DoublyList& other)
+{
 	// Link the previous nodes to new last nodes
-	if (last->getPrev() != nullptr) {
+	if (last->getPrev() != nullptr)
+	{
 		last->getPrev()->setNext(other.last);
 	}
 
-	if (other.last->getPrev() != nullptr) {
+	if (other.last->getPrev() != nullptr)
+	{
 		other.last->getPrev()->setNext(last);
 	}
 
@@ -639,13 +765,18 @@ void DoublyList::swapLasts(DoublyList& other) {
 
 	// Update the firsts if needed
 	if (count == 1)
+	{
 		first = last;
+	}
 
 	if (other.count == 1)
+	{
 		other.first = other.last;
+	}
 }
 
-void DoublyList::swapSecondAndLast() {
+void DoublyList::swapSecondAndLast()
+{
 	Node* second = first->getNext();
 
 	// Link second to the node before last
@@ -664,13 +795,14 @@ void DoublyList::swapSecondAndLast() {
 }
 
 // Assumption: The list has at least 4 elements
-void DoublyList::swapSecondAndPrevLast() {
+void DoublyList::swapSecondAndPrevLast()
+{
 	Node* second = first->getNext();
 	Node* prevLast = last->getPrev();
 
 	first->setNext(prevLast);
 	last->setPrev(second);
-	
+
 	second->getNext()->setPrev(prevLast);
 	prevLast->getPrev()->setNext(second);
 
@@ -681,14 +813,17 @@ void DoublyList::swapSecondAndPrevLast() {
 	second->setNext(last);
 }
 
-void DoublyList::swapValuesFirstAndLast(DoublyList& other) {
+void DoublyList::swapValuesFirstAndLast(DoublyList& other)
+{
 	string temp = first->getData();
 	first->setData(other.last->getData());
 	other.last->setData(temp);
 }
 
-void DoublyList::copyValuesFromObjToObj(const vector<string>& v1, DoublyList& other) {
-	for (int i = 2; i > -1; --i) {
+void DoublyList::copyValuesFromObjToObj(const vector<string>& v1, DoublyList& other)
+{
+	for (int i = 2; i > -1; --i)
+	{
 		first->setPrev(new Node(v1[i], nullptr, first));
 		first = first->getPrev();
 

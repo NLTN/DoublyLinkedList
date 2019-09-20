@@ -1,3 +1,11 @@
+/*
+	Nguyen, Nguyen
+
+	March 20, 2019
+
+	Playing  with Doubly Linked List
+*/
+
 #pragma once
 #include <string>
 #include <iostream>
@@ -34,7 +42,7 @@ public:
 	DoublyList() : count(0) {};
 
 	// The BIG THREE
-	DoublyList(const DoublyList& other) : count(0) {
+	DoublyList(const DoublyList& other) : count(other.count) {
 		if (other.count == 1)
 			insertBack(other.first->getData());
 		else if (other.count > 1) {
@@ -56,8 +64,7 @@ public:
 			cerr << "Self assigment" << endl;
 		else {
 			destroyList();
-			count = 0;
-
+			
 			if (other.count == 1)
 				insertBack(other.first->getData());
 			else if (other.count > 1) {
@@ -67,6 +74,8 @@ public:
 					current = current->getNext();
 				}
 			}
+
+			count = other.count;
 		}
 
 		return *this;
